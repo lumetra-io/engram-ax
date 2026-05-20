@@ -1,0 +1,56 @@
+{
+  "name": "@lumetra/engram-ax",
+  "version": "0.1.0",
+  "description": "Engram memory adapter for the ax (@ax-llm/ax) agent framework.",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "PRIVACY.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "engram",
+    "lumetra",
+    "ax",
+    "ax-llm",
+    "memory",
+    "agent",
+    "llm"
+  ],
+  "author": "Lumetra",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lumetra-io/engram-ax"
+  },
+  "homepage": "https://lumetra.io",
+  "peerDependencies": {
+    "@ax-llm/ax": ">=13.0.0 <16.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@ax-llm/ax": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@ax-llm/ax": "^14.0.0",
+    "typescript": "^5.5.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
