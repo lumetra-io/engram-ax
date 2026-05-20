@@ -98,7 +98,9 @@ export function engramTools(
           bucket: {
             type: "string",
             description:
-              "Optional bucket name to scope the memory. Defaults to the client's default bucket.",
+              "Bucket name to store the memory in. OMIT this field to use the " +
+              "agent's configured default bucket — do NOT pass the literal " +
+              "string 'default'.",
           },
         },
         required: ["content"],
@@ -109,7 +111,7 @@ export function engramTools(
           bucket?: string;
         };
         if (!content) throw new Error("store_memory: `content` is required");
-        await client.storeMemory(content, bucket);
+        await client.storeMemory(content, bucket || undefined);
         return { ok: true };
       },
     },
@@ -130,7 +132,11 @@ export function engramTools(
           bucket: {
             type: "string",
             description:
-              "Optional bucket name to search. Defaults to the client's default bucket.",
+              "Bucket name to search. OMIT this field to use the agent's " +
+              "configured default bucket — do NOT pass the literal string " +
+              "'default' (that explicitly targets a bucket called 'default', " +
+              "which is usually wrong). Only set this when you specifically " +
+              "need to query a different named bucket.",
           },
         },
         required: ["query"],
@@ -141,7 +147,8 @@ export function engramTools(
           bucket?: string;
         };
         if (!query) throw new Error("query_memory: `query` is required");
-        const res = await client.queryMemory(query, bucket);
+        // Treat empty string as undefined so the client falls back to defaultBucket.
+        const res = await client.queryMemory(query, bucket || undefined);
         return { answer: res.answer ?? "", success: res.success ?? true };
       },
     },
@@ -168,13 +175,18 @@ export function engramTools(
       parameters: {
         type: "object",
         properties: {
-          bucket: { type: "string", description: "Bucket name." },
+          bucket: {
+            type: "string",
+            description:
+              "Bucket to list. OMIT this field to use the agent's configured " +
+              "default bucket — do NOT pass the literal string 'default'.",
+          },
           limit: { type: "number", description: "Max memories to return (default 50)." },
         },
       },
       func: async (args: unknown) => {
         const { bucket, limit } = (args ?? {}) as { bucket?: string; limit?: number };
-        return client.listMemories(bucket, limit);
+        return client.listMemories(bucket || undefined, limit);
       },
     },
 
