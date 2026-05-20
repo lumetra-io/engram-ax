@@ -14,8 +14,11 @@
 
 import { EngramClient, engramTools } from "../dist/index.js";
 
-const apiKey =
-  process.env.ENGRAM_API_KEY ?? "wekyDmGu9u3IP7Z_TKhIX4ajSwkAMhbE0TcThhszggs";
+const apiKey = process.env.ENGRAM_API_KEY;
+if (!apiKey) {
+  console.error("ENGRAM_API_KEY env var required to run the smoke test.");
+  process.exit(2);
+}
 
 const bucket = `ax-smoke-${Date.now()}`;
 
