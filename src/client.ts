@@ -115,7 +115,7 @@ export class EngramClient {
     const b = bucket ?? this.defaultBucket;
     return this.request<EngramQueryResponse>("POST", `/v1/query`, {
       query,
-      bucket: b,
+      buckets: [b],
     });
   }
 
