@@ -1,6 +1,6 @@
 {
   "name": "@lumetra/engram-ax",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Engram memory adapter for the ax (@ax-llm/ax) agent framework.",
   "type": "module",
   "main": "dist/index.js",
